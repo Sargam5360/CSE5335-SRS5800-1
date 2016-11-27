@@ -1,0 +1,41 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript">
+var globalCounter=1;
+$(document).ready(function() {
+  //$("#btn").click(function(event){
+    again(globalCounter);
+    function again(globalCounter){
+      if (globalCounter<101)
+      {
+    $.ajax({
+                 url: "welcome/fetch", 
+                type: "GET",
+            dataType: "json",
+                data: { x: globalCounter }, 
+            complete: function() {},
+             success: function(data, textStatus, xhr) {
+                        var $li=$("<li>",{id: globalCounter,class: "qwe"});
+                       $li.fadeIn().text(JSON.stringify(data)).appendTo(".data");
+                        //alert(globalCounter);
+                        if(globalCounter> 20)
+                        {var temp=globalCounter-20
+                          $('#'+temp).fadeOut();}
+                        //  $("<li>").text(JSON.stringify(data)).appendTo('.data');}
+                        globalCounter+=1;
+                                                        
+                        setTimeout(function(){again(globalCounter);},500);                                  
+                                                           
+                      },
+               error: function() {
+                        alert("Ajax error!")
+                      }
+    });
+  }
+  };
+//});
+});
+</script>
+
+
+
+<ul class="data"></ul>
